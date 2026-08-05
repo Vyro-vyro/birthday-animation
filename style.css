@@ -1,0 +1,816 @@
+/* ===================================
+   RESET
+=================================== */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+
+    font-family:'Poppins',sans-serif;
+
+    background:
+    radial-gradient(circle at top,
+    #31112d 0%,
+    #17192b 45%,
+    #08080d 100%);
+
+    color:white;
+
+    min-height:100vh;
+
+    overflow:hidden;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    position:relative;
+}
+
+
+/* ===================================
+   BACKGROUND GRID
+=================================== */
+
+body::before{
+
+    content:"";
+
+    position:absolute;
+    inset:0;
+
+    background-image:
+    linear-gradient(rgba(255,255,255,.03) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(255,255,255,.03) 1px,transparent 1px);
+
+    background-size:70px 70px;
+
+    opacity:.35;
+
+    z-index:0;
+}
+
+
+/* ===================================
+   AMBIENT GLOW
+=================================== */
+
+.ambient-glow{
+
+    position:absolute;
+
+    width:650px;
+    height:650px;
+
+    border-radius:50%;
+
+    background:
+    radial-gradient(circle,
+    rgba(255,77,136,.22) 0%,
+    rgba(162,89,255,.12) 35%,
+    transparent 70%);
+
+    filter:blur(60px);
+
+    animation:glow 8s ease-in-out infinite alternate;
+
+    z-index:1;
+
+}
+
+
+@keyframes glow{
+
+    from{
+
+        transform:scale(1);
+
+    }
+
+    to{
+
+        transform:scale(1.15);
+
+    }
+
+}
+
+
+/* ===================================
+   MAIN CARD
+=================================== */
+
+.container{
+
+    position:relative;
+
+    z-index:5;
+
+    width:min(900px,92%);
+
+    padding:65px;
+
+    border-radius:35px;
+
+    text-align:center;
+
+    background:rgba(255,255,255,.06);
+
+    backdrop-filter:blur(20px);
+    -webkit-backdrop-filter:blur(20px);
+
+    border:1px solid rgba(255,255,255,.12);
+
+    overflow:hidden;
+
+    box-shadow:
+        0 25px 80px rgba(0,0,0,.45),
+        0 0 60px rgba(255,95,162,.15);
+
+    animation:floatCard 6s ease-in-out infinite;
+
+}
+
+
+/* ===================================
+   TEXT
+=================================== */
+
+.tagline{
+
+    color:#ffbfd8;
+
+    letter-spacing:6px;
+
+    text-transform:uppercase;
+
+    font-size:13px;
+
+    margin-bottom:25px;
+
+}
+
+
+#title{
+
+    font-size:78px;
+
+    font-weight:800;
+
+    line-height:1.05;
+
+    margin-bottom:25px;
+
+    text-shadow:
+    0 0 20px rgba(255,77,136,.45);
+
+}
+
+
+#title span{
+
+    display:block;
+
+    color:#ff4d88;
+
+    margin-top:12px;
+
+    font-size:58px;
+
+}
+
+
+.subtitle{
+
+    color:#dddddd;
+
+    font-size:22px;
+
+    line-height:1.8;
+
+    max-width:650px;
+
+    margin:auto;
+
+    margin-bottom:50px;
+
+}
+
+
+/* ===================================
+   BUTTON
+=================================== */
+
+button{
+
+    position:relative;
+
+    overflow:hidden;
+
+    border:none;
+
+    cursor:pointer;
+
+    color:white;
+
+    font-size:22px;
+
+    font-weight:600;
+
+    padding:18px 55px;
+
+    border-radius:999px;
+
+    background:
+    linear-gradient(135deg,#ff4d88,#ff7eb3);
+
+    box-shadow:
+    0 15px 35px rgba(255,77,136,.45);
+
+    transition:.35s;
+
+    letter-spacing:1px;
+}
+
+
+button:hover{
+
+    transform:translateY(-6px) scale(1.04);
+
+    box-shadow:
+    0 20px 45px rgba(255,77,136,.55);
+
+    filter:brightness(1.15);
+}
+
+
+button::before{
+
+    content:"";
+
+    position:absolute;
+
+    top:0;
+    left:-120%;
+
+    width:70%;
+    height:100%;
+
+    background:
+    linear-gradient(
+    120deg,
+    transparent,
+    rgba(255,255,255,.55),
+    transparent);
+
+    transition:.8s;
+
+}
+
+
+button:hover::before{
+
+    left:150%;
+
+}
+
+
+/* ===================================
+   MOBILE
+=================================== */
+
+@media(max-width:768px){
+
+.container{
+
+    padding:40px 25px;
+
+}
+
+#title{
+
+    font-size:48px;
+
+}
+
+#title span{
+
+    font-size:38px;
+
+}
+
+.subtitle{
+
+    font-size:18px;
+
+}
+
+button{
+
+    width:100%;
+
+    font-size:18px;
+
+}
+
+}
+
+#effects{
+
+position:fixed;
+inset:0;
+
+pointer-events:none;
+
+overflow:hidden;
+
+z-index:3;
+
+}
+
+/* ===============================
+   Luxury Particles
+================================ */
+
+.particle{
+
+    position:absolute;
+
+    border-radius:50%;
+
+    background:white;
+
+    opacity:.8;
+
+    filter:blur(1px);
+
+    box-shadow:
+        0 0 8px #fff,
+        0 0 20px #ff7eb3,
+        0 0 40px #ff4d88;
+
+    animation:particleGlow ease-in-out infinite;
+
+}
+
+@keyframes particleGlow{
+
+    0%{
+        transform:scale(.5);
+        opacity:.2;
+    }
+
+    50%{
+        transform:scale(1.4);
+        opacity:1;
+    }
+
+    100%{
+        transform:scale(.5);
+        opacity:.2;
+    }
+
+}
+
+/* ==========================
+   Cursor Glow
+========================== */
+
+.cursor-glow{
+
+    position:fixed;
+
+    width:350px;
+    height:350px;
+
+    border-radius:50%;
+
+    pointer-events:none;
+
+    background:radial-gradient(
+        circle,
+        rgba(255,95,162,.22),
+        rgba(255,95,162,.08),
+        transparent 70%
+    );
+
+    transform:translate(-50%,-50%);
+
+    filter:blur(35px);
+
+    z-index:1;
+
+    transition:
+    left .08s linear,
+    top .08s linear;
+
+}
+
+/* ===================================
+   Shooting Stars
+=================================== */
+
+.shooting-stars{
+    position:fixed;
+    inset:0;
+    pointer-events:none;
+    overflow:hidden;
+    z-index:2;
+}
+
+.shooting-stars span{
+
+    position:absolute;
+
+    top:-20%;
+
+    width:180px;
+    height:2px;
+
+    background:linear-gradient(
+        90deg,
+        rgba(255,255,255,1),
+        rgba(255,255,255,0)
+    );
+
+    border-radius:999px;
+
+    box-shadow:
+    0 0 12px white,
+    0 0 25px #ff8ec2;
+
+    animation:shoot 6s linear infinite;
+}
+
+.shooting-stars span:nth-child(1){
+left:5%;
+animation-delay:0s;
+}
+
+.shooting-stars span:nth-child(2){
+left:28%;
+animation-delay:1.5s;
+}
+
+.shooting-stars span:nth-child(3){
+left:50%;
+animation-delay:3s;
+}
+
+.shooting-stars span:nth-child(4){
+left:72%;
+animation-delay:4.5s;
+}
+
+.shooting-stars span:nth-child(5){
+left:90%;
+animation-delay:6s;
+}
+
+@keyframes shoot{
+
+0%{
+
+transform:
+translate(-200px,-100px)
+rotate(35deg);
+
+opacity:0;
+
+}
+
+10%{
+
+opacity:1;
+
+}
+
+100%{
+
+transform:
+translate(1400px,900px)
+rotate(35deg);
+
+opacity:0;
+
+}
+
+}
+
+/* ===================================
+   Reveal Screen
+=================================== */
+
+#revealScreen{
+
+    position:fixed;
+    inset:0;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    background:
+    radial-gradient(circle at top,
+    #2d0f2b 0%,
+    #151526 45%,
+    #050507 100%);
+
+    backdrop-filter:blur(20px);
+
+    opacity:0;
+    visibility:hidden;
+
+    transition:.8s;
+
+    overflow:hidden;
+
+    z-index:999;
+
+}
+
+#revealScreen.show{
+
+    opacity:1;
+    visibility:visible;
+
+}
+
+
+/* ===================================
+   PREMIUM GIFT
+=================================== */
+
+.gift-scene{
+
+display:flex;
+flex-direction:column;
+align-items:center;
+justify-content:center;
+
+position:relative;
+
+z-index:10;
+
+}
+
+.gift-box{
+
+position:relative;
+
+width:220px;
+height:220px;
+
+cursor:pointer;
+
+transition:.5s;
+
+animation:giftFloat 3s ease-in-out infinite;
+
+}
+
+@keyframes giftFloat{
+
+0%,100%{
+
+transform:translateY(0);
+
+}
+
+50%{
+
+transform:translateY(-12px);
+
+}
+
+}
+
+.gift-glow{
+
+position:absolute;
+
+width:260px;
+height:260px;
+
+left:50%;
+top:50%;
+
+transform:translate(-50%,-50%);
+
+border-radius:50%;
+
+background:
+
+radial-gradient(circle,
+rgba(255,120,180,.35),
+transparent 70%);
+
+filter:blur(35px);
+
+animation:pulseGlow 2s infinite;
+
+}
+
+@keyframes pulseGlow{
+
+0%,100%{
+
+transform:translate(-50%,-50%) scale(1);
+
+}
+
+50%{
+
+transform:translate(-50%,-50%) scale(1.2);
+
+}
+
+}
+
+.gift-body{
+
+position:absolute;
+
+bottom:0;
+
+width:220px;
+height:150px;
+
+background:linear-gradient(
+135deg,
+#ff4d88,
+#ff8ab6
+);
+
+border-radius:0 0 20px 20px;
+
+box-shadow:
+
+0 20px 50px rgba(255,77,136,.45);
+
+overflow:hidden;
+
+}
+
+.gift-lid{
+
+position:absolute;
+
+top:35px;
+
+width:220px;
+height:45px;
+
+background:#ff6ba3;
+
+border-radius:15px;
+
+transition:1s;
+
+transform-origin:left bottom;
+
+z-index:20;
+
+}
+
+.gift-ribbon-v{
+
+position:absolute;
+
+left:50%;
+
+transform:translateX(-50%);
+
+width:22px;
+
+height:100%;
+
+background:white;
+
+}
+
+.gift-ribbon-h{
+
+position:absolute;
+
+top:15px;
+
+width:100%;
+
+height:22px;
+
+background:white;
+
+}
+
+.gift-bow{
+
+position:absolute;
+
+left:50%;
+
+top:-22px;
+
+transform:translateX(-50%);
+
+display:flex;
+
+gap:8px;
+
+}
+
+.gift-bow span{
+
+width:34px;
+height:34px;
+
+background:white;
+
+border-radius:50% 50% 0 50%;
+
+transform:rotate(45deg);
+
+}
+
+.gift-bow span:last-child{
+
+transform:rotate(135deg);
+
+}
+
+.gift-text{
+
+margin-top:50px;
+
+font-size:22px;
+
+letter-spacing:3px;
+
+color:white;
+
+animation:blinkText 2s infinite;
+
+}
+
+@keyframes blinkText{
+
+50%{
+
+opacity:.4;
+
+}
+
+}
+
+/* ===============================
+   PHOTO GALLERY
+================================ */
+
+.photo-gallery{
+
+    position:absolute;
+    inset:0;
+
+    display:none;
+
+    justify-content:center;
+    align-items:center;
+
+    z-index:50;
+
+}
+
+.photo{
+
+    width:280px;
+
+    border:10px solid white;
+
+    border-radius:18px;
+
+    box-shadow:
+        0 20px 60px rgba(0,0,0,.45);
+
+    opacity:0;
+
+    transform:scale(.7) rotate(-8deg);
+
+    transition:1s;
+
+}
+
+.photo.show{
+
+    opacity:1;
+
+    transform:scale(1) rotate(0deg);
+
+}
