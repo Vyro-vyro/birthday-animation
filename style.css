@@ -770,47 +770,317 @@ opacity:.4;
 
 }
 
-/* ===============================
-   PHOTO GALLERY
-================================ */
+/* ===================================
+   PREMIUM PHOTO STACK
+=================================== */
 
-.photo-gallery{
+.photo-stack{
 
     position:absolute;
     inset:0;
 
-    display:none;
-
+    display:flex;
     justify-content:center;
     align-items:center;
 
-    z-index:50;
+    pointer-events:none;
+
+    z-index:60;
 
 }
 
 .photo{
 
-    width:280px;
+    position:absolute;
 
-    border:10px solid white;
+   width:220px;
+height:290px;
 
-    border-radius:18px;
+    object-fit:cover;
+
+    background:white;
+
+    padding:10px 10px 40px;
+
+    border-radius:10px;
 
     box-shadow:
         0 20px 60px rgba(0,0,0,.45);
 
     opacity:0;
 
-    transform:scale(.7) rotate(-8deg);
+transform:
+translateY(120px)
+scale(.1)
+rotate(-720deg);
 
-    transition:1s;
+filter:blur(8px);
+
+    transition:
+1.4s cubic-bezier(.18,.89,.32,1.28);
 
 }
 
-.photo.show{
+/* Final Positions */
+
+.card1.show{
 
     opacity:1;
 
-    transform:scale(1) rotate(0deg);
+    filter:blur(0);
+
+    transform:
+    translate(-300px,-90px)
+    rotate(-18deg)
+    scale(1);
+
+}
+
+.card2.show{
+
+    opacity:1;
+
+    filter:blur(0);
+
+    transform:
+    translate(-140px,80px)
+    rotate(-8deg)
+    scale(1);
+
+}
+.card3.show{
+
+    opacity:1;
+
+    filter:blur(0);
+
+    transform:
+    translate(0,-20px)
+    rotate(0deg)
+    scale(1.15);
+
+}
+
+.card4.show{
+
+    opacity:1;
+
+    filter:blur(0);
+
+    transform:
+    translate(170px,70px)
+    rotate(10deg)
+    scale(1);
+
+}
+
+.card5.show{
+
+    opacity:1;
+
+    filter:blur(0);
+
+    transform:
+    translate(320px,-80px)
+    rotate(18deg)
+    scale(1);
+
+}
+
+/* ===================================
+   WHITE FLASH EFFECT
+=================================== */
+
+.flash{
+
+    position:fixed;
+
+    top:0;
+    left:0;
+
+    width:100%;
+    height:100%;
+
+    background:white;
+
+    opacity:0;
+
+    pointer-events:none;
+
+    z-index:99999;
+
+}
+
+.flash.show{
+
+    animation:flashEffect .8s ease-out forwards;
+
+}
+
+@keyframes flashEffect{
+
+    0%{
+        opacity:0;
+    }
+
+    15%{
+        opacity:1;
+    }
+
+    40%{
+        opacity:.85;
+    }
+
+    100%{
+        opacity:0;
+    }
+
+}
+
+/* ===================================
+   GIFT SHAKE
+=================================== */
+
+.gift-box.shake{
+
+    animation:giftShake .55s ease;
+
+}
+
+@keyframes giftShake{
+
+0%{
+transform:translateX(0) rotate(0deg);
+}
+
+15%{
+transform:translateX(-8px) rotate(-4deg);
+}
+
+30%{
+transform:translateX(8px) rotate(4deg);
+}
+
+45%{
+transform:translateX(-6px) rotate(-3deg);
+}
+
+60%{
+transform:translateX(6px) rotate(3deg);
+}
+
+75%{
+transform:translateX(-3px) rotate(-1deg);
+}
+
+100%{
+transform:translateX(0) rotate(0deg);
+}
+
+}
+
+/* ===================================
+   ENERGY BURST
+=================================== */
+
+.energy-burst{
+
+    position:absolute;
+
+    left:50%;
+    top:50%;
+
+    width:40px;
+    height:40px;
+
+    border-radius:50%;
+
+    transform:translate(-50%,-50%) scale(0);
+
+    background:radial-gradient(circle,
+        rgba(255,180,220,.95) 0%,
+        rgba(255,90,170,.75) 35%,
+        rgba(255,90,170,.15) 70%,
+        transparent 100%);
+
+    filter:blur(12px);
+
+    opacity:0;
+
+    z-index:5;
+
+    pointer-events:none;
+
+}
+
+.energy-burst.show{
+
+    animation:energyBurst .9s ease-out forwards;
+
+}
+
+@keyframes energyBurst{
+
+    0%{
+
+        transform:translate(-50%,-50%) scale(.2);
+
+        opacity:0;
+
+    }
+
+    15%{
+
+        opacity:1;
+
+    }
+
+    100%{
+
+        transform:translate(-50%,-50%) scale(16);
+
+        opacity:0;
+
+    }
+
+}
+
+/* ===================================
+   MAGIC SPARKS
+=================================== */
+
+.spark-container{
+
+    position:absolute;
+
+    inset:0;
+
+    pointer-events:none;
+
+    z-index:15;
+
+}
+
+.spark{
+
+    position:absolute;
+
+    left:50%;
+    top:50%;
+
+   width:10px;
+   height:10px;
+
+    border-radius:50%;
+
+    background:white;
+
+    box-shadow:
+       0 0 20px white,
+       0 0 45px #ffb6d9,
+       0 0 80px #ff4d88,
+       0 0 120px #ff2f7f;
+       
+    opacity:0;
 
 }
