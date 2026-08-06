@@ -559,9 +559,9 @@ opacity:0;
 
     background:
     radial-gradient(circle at top,
-    #2d0f2b 0%,
-    #151526 45%,
-    #050507 100%);
+    #171226 0%,
+    #100d1c 40%,
+    #06050b 100%);
 
     backdrop-filter:blur(20px);
 
@@ -574,6 +574,93 @@ opacity:0;
 
     z-index:999;
 
+}
+
+/* ===================================
+   CINEMATIC NIGHT BACKDROP
+=================================== */
+
+.cinema-bg{
+    position:absolute;
+    inset:-60px;
+    overflow:hidden;
+    pointer-events:none;
+    z-index:0;
+    will-change:transform;
+}
+
+/* Soft volumetric light rays from above */
+.light-rays{
+    position:absolute;
+    top:-20%;
+    left:-10%;
+    width:120%;
+    height:140%;
+    background:
+        linear-gradient(178deg,
+        rgba(255,235,245,.10) 0%,
+        rgba(255,235,245,.05) 18%,
+        transparent 42%),
+        linear-gradient(182deg,
+        rgba(255,214,235,.08) 0%,
+        transparent 38%);
+    filter:blur(18px);
+    transform:rotate(-4deg);
+    opacity:.7;
+    animation:rayDrift 14s ease-in-out infinite alternate;
+}
+
+@keyframes rayDrift{
+    0%{ transform:rotate(-6deg) translateX(-1%); }
+    100%{ transform:rotate(-2deg) translateX(1.5%); }
+}
+
+/* Slow moving glowing bokeh orbs */
+.bokeh{
+    position:absolute;
+    border-radius:50%;
+    background:radial-gradient(circle,
+        rgba(255,200,222,.5) 0%,
+        rgba(255,160,200,.18) 45%,
+        transparent 72%);
+    filter:blur(22px);
+    opacity:.55;
+    will-change:transform,opacity;
+}
+
+.b1{ width:220px; height:220px; top:12%; left:8%;  animation:bokehFloat 16s ease-in-out infinite; }
+.b2{ width:170px; height:170px; top:70%; left:18%; animation:bokehFloat 20s ease-in-out infinite .5s; }
+.b3{ width:260px; height:260px; top:20%; right:6%; animation:bokehFloat 24s ease-in-out infinite 1s; }
+.b4{ width:150px; height:150px; bottom:16%; right:16%; animation:bokehFloat 14s ease-in-out infinite 2s; }
+.b5{ width:120px; height:120px; top:45%; left:45%; animation:bokehFloat 22s ease-in-out infinite 3s; }
+.b6{ width:190px; height:190px; top:60%; right:40%; animation:bokehFloat 18s ease-in-out infinite 1.5s; }
+
+@keyframes bokehFloat{
+    0%{ transform:translate(0,0) scale(1); opacity:.55; }
+    50%{ transform:translate(30px,-40px) scale(1.15); opacity:.8; }
+    100%{ transform:translate(0,0) scale(1); opacity:.55; }
+}
+
+/* Soft floating dust particles populated via JS */
+.dust-field{
+    position:absolute;
+    inset:0;
+}
+
+.dust{
+    position:absolute;
+    border-radius:50%;
+    background:radial-gradient(circle,#fff,rgba(255,220,235,.35) 60%,transparent 75%);
+    opacity:.5;
+    box-shadow:0 0 6px rgba(255,255,255,.5);
+    animation:dustDrift linear infinite;
+}
+
+@keyframes dustDrift{
+    0%{ transform:translateY(0) translateX(0); opacity:0; }
+    10%{ opacity:.5; }
+    90%{ opacity:.4; }
+    100%{ transform:translateY(-120px) translateX(30px); opacity:0; }
 }
 
 #revealScreen.show{
@@ -599,6 +686,27 @@ position:relative;
 
 z-index:10;
 
+animation:cameraDrift 26s ease-in-out infinite alternate;
+
+}
+
+@keyframes cameraDrift{
+    0%{ transform:scale(1) translate(0,0); }
+    50%{ transform:scale(1.03) translate(-8px,-6px); }
+    100%{ transform:scale(1.02) translate(8px,5px); }
+}
+
+/* Wrapper handles hover scale + parallax translation; the gift-box
+   keeps its own float & shake transforms freely. */
+.gift-wrap{
+    position:relative;
+    z-index:10;
+    transition:transform .5s cubic-bezier(.2,.7,.3,1);
+    will-change:transform;
+}
+
+.gift-wrap.parallax{
+    transition:transform .25s ease-out;
 }
 
 .gift-box{
@@ -632,12 +740,28 @@ transform:translateY(-12px);
 
 }
 
+/* Hover: boost glow + shine the ribbon. (Scale is combined with the
+   parallax translation in JS so the two transforms don't conflict.) */
+.gift-wrap:hover .gift-glow{
+    opacity:1;
+    animation:pulseGlow 1.6s infinite;
+}
+
+.gift-wrap:hover .gift-ribbon-v,
+.gift-wrap:hover .gift-ribbon-h,
+.gift-wrap:hover .gift-bow span{
+    filter:brightness(1.25);
+    box-shadow:
+        0 0 14px rgba(255,255,255,.75),
+        0 0 30px rgba(255,190,220,.45);
+}
+
 .gift-glow{
 
 position:absolute;
 
-width:260px;
-height:260px;
+width:300px;
+height:300px;
 
 left:50%;
 top:50%;
@@ -649,12 +773,15 @@ border-radius:50%;
 background:
 
 radial-gradient(circle,
-rgba(255,120,180,.35),
+rgba(255,190,220,.38),
+rgba(255,150,200,.18) 35%,
 transparent 70%);
 
-filter:blur(35px);
+filter:blur(40px);
 
-animation:pulseGlow 2s infinite;
+opacity:.9;
+
+animation:pulseGlow 2.4s infinite;
 
 }
 
@@ -663,15 +790,56 @@ animation:pulseGlow 2s infinite;
 0%,100%{
 
 transform:translate(-50%,-50%) scale(1);
+opacity:.65;
 
 }
 
 50%{
 
-transform:translate(-50%,-50%) scale(1.2);
+transform:translate(-50%,-50%) scale(1.15);
+opacity:.95;
 
 }
 
+}
+
+/* Realistic floor shadow */
+.gift-shadow{
+    position:absolute;
+    left:50%;
+    bottom:-30px;
+    width:240px;
+    height:34px;
+    transform:translateX(-50%);
+    border-radius:50%;
+    background:radial-gradient(ellipse at center,rgba(0,0,0,.6),transparent 70%);
+    filter:blur(8px);
+    z-index:-1;
+    animation:breathGlow 3.5s ease-in-out infinite;
+}
+
+/* Soft breathing light beneath the box */
+.gift-breath-glow{
+    position:absolute;
+    left:50%;
+    bottom:-8px;
+    width:210px;
+    height:70px;
+    transform:translateX(-50%);
+    border-radius:50%;
+    background:radial-gradient(ellipse at center,
+        rgba(255,210,228,.5) 0%,
+        rgba(255,150,200,.2) 45%,
+        transparent 75%);
+    filter:blur(28px);
+    z-index:-1;
+    opacity:.7;
+    animation:breathGlow 3.5s ease-in-out infinite;
+}
+
+@keyframes breathGlow{
+    0%,100%{ opacity:.5; transform:translateX(-50%) scale(1); }
+    50%{ opacity:.9; transform:translateX(-50%) scale(1.12); }
 }
 
 .gift-body{
@@ -683,43 +851,104 @@ bottom:0;
 width:220px;
 height:150px;
 
-background:linear-gradient(
-135deg,
-#ff4d88,
-#ff8ab6
-);
+background:
+    linear-gradient(160deg,
+    #3a2b4d 0%,
+    #4d3a63 30%,
+    #2a2038 100%);
 
-border-radius:0 0 20px 20px;
+border-radius:24px 24px 26px 26px;
 
 box-shadow:
-
-0 20px 50px rgba(255,77,136,.45);
+    0 30px 60px rgba(0,0,0,.55),
+    inset 0 2px 6px rgba(255,255,255,.12),
+    inset 0 -12px 24px rgba(0,0,0,.35);
 
 overflow:hidden;
 
+border:1px solid rgba(255,255,255,.08);
+
+}
+
+/* Satin sheen + soft reflections on the body */
+.gift-reflect{
+    position:absolute;
+    inset:0;
+    background:
+        linear-gradient(115deg,
+        transparent 30%,
+        rgba(255,255,255,.14) 45%,
+        rgba(255,230,240,.22) 50%,
+        transparent 62%),
+        linear-gradient(200deg,
+        rgba(255,180,210,.22) 0%,
+        transparent 40%);
+    pointer-events:none;
+    mix-blend-mode:screen;
 }
 
 .gift-lid{
 
 position:absolute;
 
-top:35px;
+top:32px;
 
-width:220px;
-height:45px;
+width:224px;
+height:48px;
 
-background:#ff6ba3;
+margin-left:-2px;
 
-border-radius:15px;
+background:
+    linear-gradient(160deg,
+    #453452 0%,
+    #5a4567 45%,
+    #2e2338 100%);
 
-transition:1s;
+border-radius:22px 22px 18px 18px;
 
-transform-origin:left bottom;
+transition:transform 1.25s cubic-bezier(.5,.05,.2,1);
+
+transform-origin:left center;
 
 z-index:20;
 
+box-shadow:
+    0 18px 34px rgba(0,0,0,.5),
+    inset 0 2px 6px rgba(255,255,255,.14),
+    inset 0 -10px 18px rgba(0,0,0,.3);
+
+border:1px solid rgba(255,255,255,.09);
+
 }
 
+/* Warm-white + soft pink light leaking from the lid seam */
+.gift-edge-glow{
+    position:absolute;
+    left:8%;
+    right:8%;
+    bottom:-6px;
+    height:14px;
+    border-radius:50%;
+    background:radial-gradient(ellipse at center,
+        rgba(255,235,245,.85) 0%,
+        rgba(255,190,220,.5) 45%,
+        transparent 75%);
+    filter:blur(9px);
+    opacity:.75;
+    animation:edgePulse 4.5s ease-in-out infinite;
+    pointer-events:none;
+}
+
+@keyframes edgePulse{
+    0%,100%{ opacity:.35; transform:scaleX(.85); }
+    50%{ opacity:.95; transform:scaleX(1.05); }
+}
+
+.gift-lid.open{
+    transform:rotate(-38deg) translate(-42px,-46px);
+}
+
+/* Elegant satin vertical ribbon */
 .gift-ribbon-v{
 
 position:absolute;
@@ -728,25 +957,46 @@ left:50%;
 
 transform:translateX(-50%);
 
-width:22px;
+width:24px;
 
 height:100%;
 
-background:white;
+background:
+    linear-gradient(90deg,
+    #e8e2ee 0%,
+    #ffffff 45%,
+    #cfc6d8 100%);
+
+box-shadow:
+    inset 0 0 6px rgba(255,255,255,.6),
+    0 0 12px rgba(255,255,255,.25);
+
+transition:.4s;
 
 }
 
+/* Elegant satin horizontal ribbon */
 .gift-ribbon-h{
 
 position:absolute;
 
-top:15px;
+top:14px;
 
 width:100%;
 
-height:22px;
+height:24px;
 
-background:white;
+background:
+    linear-gradient(180deg,
+    #e8e2ee 0%,
+    #ffffff 45%,
+    #cfc6d8 100%);
+
+box-shadow:
+    inset 0 0 6px rgba(255,255,255,.6),
+    0 0 12px rgba(255,255,255,.25);
+
+transition:.4s;
 
 }
 
@@ -756,11 +1006,13 @@ position:absolute;
 
 left:50%;
 
-top:-22px;
+top:-24px;
 
 transform:translateX(-50%);
 
 display:flex;
+
+align-items:center;
 
 gap:8px;
 
@@ -768,14 +1020,21 @@ gap:8px;
 
 .gift-bow span{
 
-width:34px;
-height:34px;
+width:38px;
+height:38px;
 
-background:white;
+background:
+    linear-gradient(135deg,#f4eef7,#fff 50%,#d9d0e0);
 
 border-radius:50% 50% 0 50%;
 
 transform:rotate(45deg);
+
+box-shadow:
+    0 6px 14px rgba(0,0,0,.3),
+    inset 0 0 8px rgba(255,255,255,.7);
+
+transition:.4s;
 
 }
 
@@ -783,6 +1042,22 @@ transform:rotate(45deg);
 
 transform:rotate(135deg);
 
+}
+
+/* Satin knot in the middle of the bow */
+.bow-middle{
+    width:18px !important;
+    height:18px !important;
+    border-radius:50% !important;
+    background:radial-gradient(circle at 35% 30%,
+        #ffffff 0%,
+        #e6e0ec 55%,
+        #c9bfd3 100%) !important;
+    transform:translateX(-50%) !important;
+    box-shadow:
+        0 4px 10px rgba(0,0,0,.35),
+        inset 0 0 6px rgba(255,255,255,.85) !important;
+    z-index:2;
 }
 
 .gift-text{
@@ -1156,7 +1431,7 @@ transform:translateX(0) rotate(0deg);
         transform:translate(170px,-50px) rotate(16deg) scale(1);
     }
 
-    .gift-box{
+.gift-box{
         width:180px;
         height:180px;
     }
@@ -1167,12 +1442,21 @@ transform:translateX(0) rotate(0deg);
     }
 
     .gift-lid{
-        width:180px;
+        width:182px;
+        margin-left:-1px;
     }
 
-.gift-glow{
-        width:220px;
-        height:220px;
+    .gift-glow{
+        width:240px;
+        height:240px;
+    }
+
+    .gift-shadow{
+        width:190px;
+    }
+
+    .gift-breath-glow{
+        width:170px;
     }
 
 }
