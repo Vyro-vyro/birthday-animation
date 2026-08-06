@@ -29,7 +29,7 @@
 
 <h1 id="title">
     Happy Birthday
-  <span id="personName">Mohini ❤️</span>
+  <span id="personName"> {NAME} </span>
 </h1>
 
 <p class="subtitle">
@@ -43,6 +43,13 @@
 </div>
 
 <div class="shooting-stars">
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
     <span></span>
     <span></span>
     <span></span>
@@ -108,15 +115,97 @@
 </div>
 -->
 
- <div class="photo-stack">
+<div class="photo-stack">
 
     <img src="assets/images/photo1.jpg" class="photo card1">
-    <img src="assets/images/photo1.jpg" class="photo card2">
-    <img src="assets/images/photo1.jpg" class="photo card3">
-    <img src="assets/images/photo1.jpg" class="photo card4">
-    <img src="assets/images/photo1.jpg" class="photo card5">
 
- </div>
+    <img src="assets/images/photo2.jpg" class="photo card2">
+
+    <img src="assets/images/photo3.jpg" class="photo card3">
+
+    <img src="assets/images/photo4.jpg" class="photo card4">
+
+<img src="assets/images/photo5.jpg" class="photo card5">
+
+</div>
+
+<!-- ============================================
+     TYPEWRITER MESSAGE OVERLAY (after photo reveal)
+================================================ -->
+<div class="message-overlay">
+
+    <div class="message-dim"></div>
+
+    <div class="message-glow"></div>
+
+    <div class="message-text">
+
+<span class="type-line" id="line1"></span>
+        <span class="type-line" id="line2"></span>
+
+    </div>
+
+</div>
+
+<!-- ============================================
+     BIRTHDAY STORYBOOK (after typewriter message)
+================================================ -->
+<div class="storybook">
+
+    <div class="book">
+
+        <!-- Closed cover -->
+        <div class="book-cover">
+            <div class="cover-face">
+                <span class="cover-emoji">🎂</span>
+                <h2 class="cover-title">Happy Birthday</h2>
+                <span class="cover-name">Mohini ❤️</span>
+                <span class="cover-hint">Click to Open</span>
+            </div>
+        </div>
+
+<!-- Open scrapbook pages -->
+        <div class="book-inner">
+
+            <!-- LEFT page: photo -->
+            <div class="page-left">
+                <div class="page-tape"></div>
+                <img class="page-img" src="" alt="Memory">
+                <span class="page-photo-label">Memory ✨</span>
+            </div>
+
+            <!-- RIGHT page: birthday message -->
+            <div class="page-right">
+                <div class="page-tape"></div>
+                <h3 class="page-title">A Little Note For You</h3>
+                <p class="page-wish"></p>
+                <span class="page-doodle">🎂</span>
+            </div>
+
+            <!-- Animated leaf for the page turning -->
+            <div class="flip-leaf">
+                <div class="flip-front">
+                    <img class="flip-img" src="" alt="Memory">
+                    <span class="flip-label">Memory ✨</span>
+                </div>
+                <div class="flip-back">
+                    <h3 class="flip-title">A Little Note For You</h3>
+                    <p class="flip-wish"></p>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Navigation -->
+        <div class="book-nav">
+            <button class="nav-btn" id="prevBtn">← Previous</button>
+            <span class="page-indicator" id="pageIndicator">Page 1 of 1</span>
+            <button class="nav-btn" id="nextBtn">Next →</button>
+        </div>
+
+    </div>
+
+</div>
 
 </div>
 
