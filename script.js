@@ -60,6 +60,68 @@ const flash = document.querySelector(".flash");
 const cards = document.querySelectorAll(".photo-stack .photo");
 const sparkContainer = document.querySelector(".spark-container");
 
+const giftWrap = document.querySelector(".gift-wrap");
+const cinemaBg = document.querySelector(".cinema-bg");
+const dustField = document.querySelector(".dust-field");
+
+/* ===== Soft floating dust particles ===== */
+
+if (dustField) {
+
+    for (let i = 0; i < 40; i++) {
+
+        const dust = document.createElement("span");
+
+        dust.className = "dust";
+
+        const size = Math.random() * 3 + 1.5;
+
+        dust.style.width = size + "px";
+        dust.style.height = size + "px";
+        dust.style.left = Math.random() * 100 + "%";
+        dust.style.top = Math.random() * 100 + "%";
+
+        dust.style.animationDuration = (8 + Math.random() * 10) + "s";
+        dust.style.animationDelay = Math.random() * 12 + "s";
+
+        dustField.appendChild(dust);
+
+    }
+
+}
+
+/* ===== Slow cinematic parallax (background vs gift) ===== */
+
+if (giftWrap && cinemaBg) {
+
+// Hovering the gift also scales it slightly.
+    const scaleOnHover = () =>
+        (giftWrap.matches(":hover") ? " scale(1.04)" : "");
+
+    document.addEventListener("mousemove", (e) => {
+
+        const cx = (e.clientX / window.innerWidth - 0.5);
+        const cy = (e.clientY / window.innerHeight - 0.5);
+
+        // Background drifts opposite to the gift: subtle parallax
+        cinemaBg.style.transform =
+            "translate(" + (cx * -18) + "px," + (cy * -12) + "px)";
+
+        giftWrap.classList.add("parallax");
+        giftWrap.style.transform =
+            "translate(" + (cx * 10) + "px," + (cy * 6) + "px)" + scaleOnHover();
+
+    });
+
+    document.addEventListener("mouseleave", () => {
+
+        cinemaBg.style.transform = "translate(0,0)";
+        giftWrap.style.transform = "";
+
+    });
+
+}
+
 gift.addEventListener("click",()=>{
 
     gift.classList.add("shake");
@@ -68,8 +130,8 @@ gift.addEventListener("click",()=>{
 
         gift.classList.remove("shake");
 
-        // Open gift lid
-lid.style.transform = "rotate(-40deg) translate(-40px,-20px)";
+        // Open gift lid — heavier, weightier, more realistic motion
+        lid.classList.add("open");
 
 // Pink Energy Burst
 burst.classList.add("show");
@@ -117,7 +179,7 @@ setTimeout(() => {
 
         },6300);
 
-    },600);
+    },720);
 
 });
 
